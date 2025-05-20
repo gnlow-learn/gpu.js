@@ -35,3 +35,24 @@ const gpu = new GPU()
     console.log(res)
 }
 
+{
+    const kernel = gpu.createKernel(
+        function () {
+            return this.thread.x
+        }
+    ).setOutput([10])
+
+    const res = kernel()
+    console.log(res)
+}
+
+{
+    const kernel = gpu.createKernel(`
+        function () {
+            return this.thread.x
+        }
+    `.trim() as any).setOutput([10])
+
+    const res = kernel()
+    console.log(res)
+}
