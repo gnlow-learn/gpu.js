@@ -22,16 +22,16 @@ const gpu = new GPU()
 
 {
     const dist = gpu.createKernel(
-        function (ps: number[]) {
-            const x1 = ps[this.thread.z*2]
-            const y1 = ps[this.thread.z*2+1]
+        function (ps: [number, number][]) {
+            const x1 = ps[this.thread.z][0]
+            const y1 = ps[this.thread.z][1]
             const x0 = this.thread.x
             const y0 = this.thread.y
             return (x1-x0)**2+(y1-y0)**2
         }
     ).setOutput([10, 10, 2])
 
-    const res = dist([5, 5, 4, 3])
+    const res = dist([[5, 5], [4, 3]])
     console.log(res)
 }
 
